@@ -1,39 +1,39 @@
 
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import {useEffect} from "react"
-import {useState} from "react"
-import {useParams} from "react-router-dom"
-import {axios} from "axios";
 export const EmployeeList = () => {
+  const [employee, setEmployee] = useState([]);
 
-    const {id } = useParams();
-     
-     const [employee , setEmployee]=useState({})
-    useEffect(()=>{
-       getData();
-      
-    },[])
-    
-    const getData = ()=>{
-        axios.get(`http://localhost:8080/employee/${id}`)
-        .then( ( data)=>{
-         
-          console.log(data.data);
-          setEmployee(data.data);
-        })
-    }
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/employee")
+      .then((res) => setEmployee(res.data));
+  }, []);
 
-    return (
-      <div className="list_container" >
-        {/* {employee.map((e)=>( */}
-
-    <div className="employee_card" key={employee.id} >
-    <img className="employee_image" src={employee.image} />
-    <span className="employee_name">{employee.employee_name}</span>
-    <span className="employee_title">{employee.title}</span>
-     
-        </div>
-        ))
-      </div>
-    );
-  };
+  console.log(employee);
+  return (
+    <div
+      className="list_container"
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+    >
+      {employee.map((e) => (
+        <Link to={`/employees/${e.id}`}>
+          <div
+            className="employee_card"
+        
+          >
+            <img src={e.image} alt="image" className="employee_image" />
+            <span className="employee_name">{e.employee_name}</span>
+            <span className="employee_title">{e.title}</span>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+};
