@@ -1,9 +1,7 @@
 import {Link} from "react-router-dom"
 export const Navbar = () => {
 
-    //  const nav =[{ title:"Home" , to:"/"},
-    //  { title:"Employee List" , to:"/EmployeeDetails"},
-    //  { title:"Admin" , to:"/admin"}]
+   
   
 
     return (
